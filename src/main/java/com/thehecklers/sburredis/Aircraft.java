@@ -6,12 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.time.Instant;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RedisHash
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Aircraft {
     @Id
@@ -46,40 +48,4 @@ public class Aircraft {
 
     @JsonProperty("bds40_seen_time")
     private Instant bds40SeenTime;
-
-    public String getLastSeenTime() {
-        return lastSeenTime.toString();
-    }
-
-    public void setLastSeenTime(String lastSeenTime) {
-        if(null != lastSeenTime) {
-            this.lastSeenTime = Instant.parse(lastSeenTime);
-        }else{
-            this.lastSeenTime = Instant.ofEpochSecond(0);
-        }
-    }
-
-    public String getPosUpdateTime() {
-        return posUpdateTime.toString();
-    }
-
-    public void setPosUpdateTime(String posUpdateTime) {
-        if(null != posUpdateTime) {
-            this.posUpdateTime = Instant.parse(posUpdateTime);
-        }else{
-            this.posUpdateTime = Instant.ofEpochSecond(0);
-        }
-    }
-
-    public String getBds40_seenTime() {
-        return bds40SeenTime.toString();
-    }
-
-    public void setBds40_seenTime(String bds40_seenTime) {
-        if(null != bds40_seenTime) {
-            this.bds40SeenTime = Instant.parse(bds40_seenTime);
-        }else{
-            this.bds40SeenTime = Instant.ofEpochSecond(0);
-        }
-    }
 }
